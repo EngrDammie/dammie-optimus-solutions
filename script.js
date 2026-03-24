@@ -1,5 +1,5 @@
 /**
- * Optimus Digital - Contact Form Handler
+ * Dammie Optimus Solutions - Contact Form Handler
  * Mocked implementation for demonstration
  */
 

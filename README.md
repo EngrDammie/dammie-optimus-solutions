@@ -1,4 +1,4 @@
-# Optimus Digital
+# Dammie Optimus Solutions
 
 Custom software solutions that drive real results.
 
@@ -45,7 +45,7 @@ python -m http.server 8000
 
 ```bash
 # Add remote (replace with your repo URL)
-git remote add origin https://github.com/YOUR_USERNAME/optimus-digital.git
+git remote add origin https://github.com/YOUR_USERNAME/dammie-optimus-solutions.git
 
 # Push to GitHub
 git push -u origin main

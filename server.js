@@ -159,7 +159,7 @@ server.listen(PORT, () => {
     console.log(`
 ╔════════════════════════════════════════════════════════════╗
 ║                                                            ║
-║   ⚡ Optimus Digital - Agency Server                       ║
+║   ⚡ Dammie Optimus Solutions - Agency Server                       ║
 ║                                                            ║
 ║   Server running at: http://localhost:${PORT}                 ║
 ║                                                            ║
