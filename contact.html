@@ -85,7 +85,8 @@
                     </div>
                 </div>
                 <div class="contact-form-wrapper">
-                    <form id="inquiryForm" class="inquiry-form">
+                    <!-- Replace FORMSPREE_FORM_ID with your form ID from formspree.io -->
+                    <form id="inquiryForm" class="inquiry-form" action="https://formspree.io/f/FORMSPREE_FORM_ID" method="POST">
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="name">Full Name *</label>
@@ -231,7 +232,7 @@
             }
         });
 
-        // Handle form submission
+        // Handle form submission via Formspree
         document.getElementById('inquiryForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -248,42 +249,28 @@
             formSuccess.style.display = 'none';
             formError.style.display = 'none';
             
-            // Collect form data
-            const formData = {
-                name: document.getElementById('name').value,
-                company: document.getElementById('company').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                service: document.getElementById('service').value,
-                budget: document.getElementById('budget').value,
-                timeline: document.getElementById('timeline').value,
-                message: document.getElementById('message').value,
-                newsletter: document.getElementById('newsletter').checked,
-                submittedAt: new Date().toISOString()
-            };
+            const formAction = this.action;
             
             try {
-                // Save lead to JSON file via API endpoint
-                const response = await fetch('/api/leads', {
+                // Submit to Formspree
+                const formData = new FormData(this);
+                const response = await fetch(formAction, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData)
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
                 });
                 
-                if (response.ok || response.status === 201) {
+                if (response.ok) {
                     formSuccess.style.display = 'flex';
                     this.reset();
                 } else {
-                    throw new Error('Failed to save lead');
+                    throw new Error('Formspree submission failed');
                 }
             } catch (error) {
-                // For demo: store in localStorage as fallback
-                console.log('API not available, storing locally');
-                const leads = JSON.parse(localStorage.getItem('agency_leads') || '[]');
-                leads.push(formData);
-                localStorage.setItem('agency_leads', JSON.stringify(leads));
-                formSuccess.style.display = 'flex';
-                this.reset();
+                formError.style.display = 'flex';
+                formError.querySelector('span').textContent = 'Submission failed. Please try again or email us directly.';
             } finally {
                 btn.disabled = false;
                 btnText.style.display = 'inline';
