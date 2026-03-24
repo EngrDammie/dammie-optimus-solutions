@@ -183,3 +183,7 @@ window.addEventListener('scroll', () => {
         navbar.style.background = 'rgba(10, 10, 10, 0.9)';
     }
 });
+
+
+// Auto-update year in footer
+document.getElementById('year').textContent = new Date().getFullYear();
